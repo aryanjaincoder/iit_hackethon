@@ -1,13 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import "./Home.css";
 import { ThemeContext } from "../../context/ThemeContext";
+import UserPreferences from "../Intrest/Intrest";
 
 export default function Home() {
   // const { darkMode } = useContext(ThemeContext);
+  const [preferencesSet, setPreferencesSet] = useState(false);
+
+  useEffect(() => {
+    const savedPreferences = localStorage.getItem("userPreferences");
+    if (savedPreferences) {
+      setPreferencesSet(true);
+    }
+  }, []);
+
+  const handleSavePreferences = (preferences) => {
+    localStorage.setItem("userPreferences", JSON.stringify(preferences));
+    setPreferencesSet(true);
+  };
 
   return (
-    <div className="home">
+    <>
+       {!preferencesSet ? (
+        <UserPreferences onSavePreferences={handleSavePreferences} />
+      ) : (
+        <div className="home">
       {/* Hero Section */}
       <section className="hero">
         <h1>Master Coding with Ed Learn</h1>
@@ -61,5 +79,8 @@ export default function Home() {
         <p>© 2025 Ed Learn. All Rights Reserved.</p>
       </footer>
     </div>
+      )}
+    </>
+    
   );
 }

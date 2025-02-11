@@ -1,30 +1,29 @@
 import React, { useState } from "react";
 import "./Register.css";
+import { Link } from "react-router-dom";
+import apiRequest from "../../lib/apiRequest";
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    termsAccepted: false,
-  });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+    setError(false);
+    try {
+      const res = await apiRequest.post("/auth/register", {
+        username,
+        email,
+        password,
+      });
+      res.data && window.location.replace("/login");
+    } catch (err) {
+      setError(true);
     }
-    console.log("Registered with:", formData);
   };
 
   return (
@@ -36,23 +35,19 @@ export default function Register() {
           <label>Full Name:</label>
           <input
             type="text"
-            name="fullName"
-            placeholder="Enter your full name"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
+            className="registerInput"
+            placeholder="Enter your username..."
+            onChange={(e) => setUsername(e.target.value)}
           />
         </div>
 
         <div className="input-group">
           <label>Email:</label>
           <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+            type="text"
+            className="registerInput"
+            placeholder="Enter your email..."
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
 
@@ -60,23 +55,9 @@ export default function Register() {
           <label>Password:</label>
           <input
             type="password"
-            name="password"
-            placeholder="Create a password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Confirm Password:</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm your password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            required
+            className="registerInput"
+            placeholder="Enter your password..."
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 
@@ -84,19 +65,21 @@ export default function Register() {
           <label>
             <input
               type="checkbox"
-              name="termsAccepted"
-              checked={formData.termsAccepted}
-              onChange={handleChange}
-              required
+              
             />
             I agree to the Terms & Conditions
           </label>
         </div>
 
-        <button type="submit" className="register-btnn">Register</button>
+        <button type="submit" className="register-btnn">
+          Register
+        </button>
 
         <p className="login-link">
-          Already have an account? <a href="#">Login</a>
+          Already have an account?{" "}
+          <Link className="login" to="/login">
+            Login
+          </Link>
         </p>
       </form>
     </div>

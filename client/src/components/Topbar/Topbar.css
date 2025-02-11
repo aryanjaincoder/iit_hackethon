@@ -61,7 +61,7 @@
     gap: 20px;
   }
   
-  .nav-links a {
+  .nav-links  {
     text-decoration: none;
     color: var(--text-light);
     font-weight: 500;
@@ -85,7 +85,28 @@
     display: flex;
     gap: 12px;
   }
+
+  .practice-btnn{
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .practice-btnn:hover {
+    color: var(--primary-light);
+  }
+
+  body.dark-mode .practice-btnn {
+    color: var(--text-dark);
+  }
   
+  body.dark-mode .practice-btnn:hover {
+    color: var(--primary-dark);
+  }
+  body.dark-mode .user-icon {
+    color: white;
+  }
   .login-btn,
   .register-btn {
     padding: 8px 16px;
@@ -178,3 +199,64 @@
     }
   }
   
+
+  .user-container {
+    position: relative;
+    display: flex;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .user-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .user-icon {
+    font-size: 24px;
+    margin-right: 8px;
+    color: black;
+  }
+  
+  /* Dropdown Menu */
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: #333;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dropdown-menu a, .logout-btn {
+    color: white;
+    padding: 10px;
+    text-align: left;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .dropdown-menu a:hover, .logout-btn:hover {
+    background: #444;
+  }
+  
+  /* Logout Button */
+  .logout-btn {
+    color: red;
+    font-weight: bold;
+  }

@@ -4,6 +4,11 @@
   font-family: "Poppins", serif;
   
 }
+
+.link{
+  text-decoration: none;
+  color: inherit;
+}
 /* Root Variables */
 :root {
   --bg-light: #ffffff;

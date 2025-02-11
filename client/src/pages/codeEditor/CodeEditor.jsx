@@ -11,7 +11,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import "./CodeEditor.css";
 
 export default function CodeEditor() {
-  // Hardcoded supported versions
+  
   const languageVersions = {
     cpp: ["10.2.0"],
     python: ["3.10.0"],
@@ -24,36 +24,30 @@ export default function CodeEditor() {
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState("cpp");
-  const [version, setVersion] = useState(languageVersions["cpp"][0]); // Default Version
+  const [version, setVersion] = useState(languageVersions["cpp"][0]); 
 
-  // Language Extensions
+
   const languageExtensions = {
     cpp: cpp(),
     python: python(),
     java: java(),
   };
 
-  // Boilerplate Code
+  
   const boilerplateCode = {
     cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n  cout << "Hello, Code Quest!";\n  return 0;\n}`,
     python: `print("Hello, Code Quest!")`,
     java: `public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, Code Quest!");\n  }\n}`,
   };
 
-  // Handle Language Change
+ 
   const handleLanguageChange = (event) => {
     const selectedLang = event.target.value;
     setLanguage(selectedLang);
     setCode(boilerplateCode[ selectedLang]);
-    setVersion(languageVersions[selectedLang][0]); // Set default version for the selected language
+    setVersion(languageVersions[selectedLang][0]); // Set default version 
   };
 
-  // // Handle Version Change
-  // const handleVersionChange = (event) => {
-  //   setVersion(event.target.value);
-  // };
-
-  // Function to Run Code
   const runCode = async () => {
     setLoading(true);
     setOutput("Running...");

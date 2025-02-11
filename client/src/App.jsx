@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   createBrowserRouter,
   Route,
@@ -18,8 +18,12 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import CodeEditor from "./pages/codeEditor/CodeEditor";
 import Courses from "./pages/courses/Courses";
+import { Context, ContextProvider } from "./context/Context";
+import Quiz from "./pages/Quiz/Quiz";
+import UserPreferences from "./pages/Intrest/Intrest";
 
 function App() {
+  const { user } = useContext(Context);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -27,43 +31,51 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: user ? <Home/> : <Register/>,
         },
+        
         {
-          path: "/about",
-          element: <About />,
-        },
-        {
-          path: "/blog",
-          element: <Blog />,
-        },
-        {
-          path: "/contact",
-          element: <Contact />,
+          path: "/practice",
+          element: user ? <Quiz/> : <Register/>,
         },
         {
           path: "/login",
-          element: <Login />,
+          element: user ? <Home/> : <Login/>,
         },
         {
           path: "/register",
-          element: <Register />,
+          element: user ? <Home/> : <Register/>,
         },
         {
+          path: "/about",
+          element: user ? <About/> : <Register/>,
+        },
+        {
+          path: "/blog",
+          element: user ? <Blog/> : <Register/>,
+        },
+        {
+          path: "/contact",
+          element: user ? <Contact/> : <Register/>,
+        },
+       
+        {
           path: "/developer",
-          element: <CodeEditor />,
+          element: user ? <CodeEditor/> : <Register/>,
         },
         {
           path: "/courses",
-          element: <Courses />,
+          element: user ? <Courses/> : <Register/>,
         },
       ],
     },
   ]);
   return (
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <ContextProvider>
+      <ThemeProvider>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </ContextProvider>
   );
 }
 
