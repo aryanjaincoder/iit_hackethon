@@ -50,22 +50,28 @@ export default function Topbar() {
       </nav>
       {user ? (
         <div className="user-container">
-            <button className="user-btn" onClick={() => setDropdownOpen(!dropdownOpen)}>
-              <FaUserCircle className="user-icon" />
-              {user.name}
-            </button>
+          <button
+            className="user-btn"
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+          >
+            <FaUserCircle className="user-icon" />
+            <span>{user.username}</span>
+          </button>
           
+          <Link to="/practice" className="practice-btnn link">
+            Practice
+          </Link>
 
-            <Link to = "/practice" className="practice-btnn link">Practice</Link>
-         
-            {dropdownOpen && (
-              <div className="dropdown-menu">
-                <Link to="/">Dashboard</Link>
-                <Link to="/">Settings</Link>
-                <button onClick={handleLogout} className="logout-btn">Logout</button>
+          {dropdownOpen && (
+            <div className="dropdown-menu">
+              <Link to="/">Dashboard</Link>
+              <Link to="/">Settings</Link>
+              <div onClick={handleLogout} className="logout-btn">
+                Logout
               </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
       ) : (
         <div className="auth-buttons">
           <Link to="/login" className="login-btn link">
