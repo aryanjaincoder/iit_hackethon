@@ -9,8 +9,6 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
-  
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
@@ -63,11 +61,7 @@ export default function Register() {
 
         <div className="terms">
           <label>
-            <input
-              type="checkbox"
-              
-            />
-            I agree to the Terms & Conditions
+            <input type="checkbox" />I agree to the Terms & Conditions
           </label>
         </div>
 
